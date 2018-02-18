@@ -3,7 +3,7 @@ const Todo = `
         id: Int,
         title: String,
         description: String
-        dueDate: Date,
+        dueDate: String,
         isCompleted: Boolean
     }
 `;
