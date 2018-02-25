@@ -1,9 +1,23 @@
 const Todo = `
     type Todo {
-        id: Int,
-        title: String,
+        id: ID!
+        title: String
         description: String
-        dueDate: String,
+        dueDate: String
+        isCompleted: Boolean
+    }
+    
+    input CreateTodo {
+        title: String!
+        description: String
+        dueDate: String
+        isCompleted: Boolean
+    }
+
+    input UpdateTodo {
+        title: String
+        description: String
+        dueDate: String
         isCompleted: Boolean
     }
 `;
