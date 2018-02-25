@@ -1,14 +1,25 @@
 import { makeExecutableSchema } from 'graphql-tools';
+import Todo from './todo';
+import resolvers from '../resolvers';
 
-const typeDefs = `
+const rootQuery = `
     type Query {
         todos: [Todo]
-        todos(id: Int!): Todo
+        todo(id: Int!): Todo
+    }
+`;
+
+const rootMutation = `
+    type Mutation {
+        createTodo(createTodoParams: CreateTodo): Todo
+        updateTodo(id: Int!, updateTodoParams: UpdateTodo): Todo
+        deleteTodo(id: Int!): Todo
     }
 `;
 
 const schema = makeExecutableSchema({
-  typeDefs,
+  typeDefs: [rootQuery, rootMutation, Todo],
+  resolvers,
 });
 
 export default schema;
