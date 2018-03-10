@@ -33,19 +33,22 @@ const todoResolver = {
         throw new Error(exception);
       }
     },
-    updateTodo: async (root, { id, updateTodoParams }) => {
-      try {
-        const todo = await Todo.findById(id);
-        const updatedTodo = await todo.update({
-          title: updateTodoParams.title,
-          description: updateTodoParams.description,
-          dueDate: updateTodoParams.dueDate,
-          isCompleted: updateTodoParams.isCompleted,
-        });
-        return updatedTodo;
-      } catch (exception) {
-        throw new Error(exception);
+    updateTodo: async (root, { id, updateTodoParams }, context) => {
+      if (context.user) {
+        try {
+          const todo = await Todo.findById(id);
+          const updatedTodo = await todo.update({
+            title: updateTodoParams.title,
+            description: updateTodoParams.description,
+            dueDate: updateTodoParams.dueDate,
+            isCompleted: updateTodoParams.isCompleted,
+          });
+          return updatedTodo;
+        } catch (exception) {
+          throw new Error(exception);
+        }
       }
+      return new Error('Unauthorized');
     },
     deleteTodo: async (root, { id }) => {
       try {
